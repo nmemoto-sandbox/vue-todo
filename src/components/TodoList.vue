@@ -7,11 +7,13 @@
 <script>
 import Todo from './Todo.vue'
 export default {
-    props: {
-        todos: Array
-    },
     components: {
         Todo
+    },
+    computed: {
+        todos() {
+            return this.$store.getters.todos
+        }
     }
 }
 </script>

@@ -5,8 +5,10 @@
 </template>
 <script>
 export default {
-    props: {
-        message: String
+    computed: {
+        message() {
+            return this.$store.getters.message
+        }
     }
 }
 </script>
