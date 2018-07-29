@@ -1,15 +1,22 @@
 <template>
     <div>
-        {{ todo.title }} - {{ showDone }}
+        <input type="checkbox" id="checkbox" value="todo.done" @change="changeStatus">
+        <label :class="{done: todo.done}">{{ todo.title }}</label>
     </div>
 </template>
 <script>
 export default {
     props: ['todo'],
-    computed: {
-        showDone() {
-            return this.todo.done ? "完了" : "未完了"
+    methods: {
+        changeStatus() {
+            this.$store.dispatch('changeStatus', this.todo.id)
         }
     }
 }
 </script>
+<style lang="scss" scoped>
+    .done {
+        color: gray;
+        text-decoration: line-through;
+    }
+</style>
