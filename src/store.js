@@ -46,6 +46,10 @@ const store = new Vuex.Store({
         changeStatus(state, payload) {
             const arrayNum = state.todos.findIndex((todo) => todo.id === payload.id)
             state.todos[arrayNum].done = !state.todos[arrayNum].done
+        },
+        updateTitle(state, payload) {
+            const arrayNum = state.todos.findIndex((todo) => todo.id === payload.id)
+            state.todos[arrayNum].title = payload.title
         }
     },
     actions: {
@@ -57,6 +61,9 @@ const store = new Vuex.Store({
         },
         changeStatus({ commit }, id) {
             commit('changeStatus', { id } )
+        },
+        updateTitle({ commit }, { id, title }) {
+            commit('updateTitle', { id, title })
         }
     }
   })
