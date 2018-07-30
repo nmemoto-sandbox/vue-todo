@@ -14,11 +14,11 @@ export default {
     methods: {
         addNewTodo: function() {
             if (this.newTodo.length > 0) {
-                this.$emit('addTodo', this.newTodo)
+                this.$store.dispatch('addTodo', this.newTodo)
                 this.newTodo = ''
-                this.$emit('setMessage', '')
+                this.$store.dispatch('setMessage', '')
             } else {
-                this.$emit('setMessage', '入力してください')
+                this.$store.dispatch('setMessage', '入力してください')
             }
         }
     }
