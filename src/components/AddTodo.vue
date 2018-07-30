@@ -5,6 +5,7 @@
     </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
     data () {
         return {
@@ -12,13 +13,17 @@ export default {
         }
     },
     methods: {
+        ...mapActions([
+            'addTodo',
+            'setMessage'
+        ]),
         addNewTodo: function() {
             if (this.newTodo.length > 0) {
-                this.$store.dispatch('addTodo', this.newTodo)
+                this.addTodo(this.newTodo)
                 this.newTodo = ''
-                this.$store.dispatch('setMessage', '')
+                this.setMessage('')
             } else {
-                this.$store.dispatch('setMessage', '入力してください')
+                this.setMessage('入力してください')
             }
         }
     }

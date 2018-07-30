@@ -5,15 +5,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Todo from './Todo.vue'
 export default {
     components: {
         Todo
     },
-    computed: {
-        todos() {
-            return this.$store.getters.todos
-        }
-    }
+    computed: mapGetters(['todos'])
 }
 </script>
