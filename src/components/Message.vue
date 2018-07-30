@@ -4,12 +4,9 @@
     </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
-    computed: {
-        message() {
-            return this.$store.getters.message
-        }
-    }
+    computed: mapGetters(['message'])
 }
 </script>
 <style lang="scss" scoped>

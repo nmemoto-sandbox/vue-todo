@@ -1,8 +1,8 @@
 <template>
     <div>
-        <input type="checkbox" id="checkbox" value="todo.done" @change="changeStatus">
+        <input type="checkbox" id="checkbox" value="todo.done" @change="changeStatus(todo.id)">
         <template v-if="this.editable">
-            <input @keyup.enter="updateTitle" @blur="updateTitle" v-model="title" v-focus>
+            <input @keyup.enter="updateTodoTitle" @blur="updateTodoTitle" v-model="title" v-focus>
         </template>
         <template v-else>
             <label :class="{done: todo.done}" @click="changeEditable">{{ todo.title }}</label>
@@ -10,6 +10,7 @@
     </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
     props: ['todo'],
     data () {
@@ -19,18 +20,20 @@ export default {
         }
     },
     methods: {
-        changeStatus() {
-            this.$store.dispatch('changeStatus', this.todo.id)
-        },
+        ...mapActions([
+            'changeStatus',
+            'updateTitle',
+            'setMessage'
+        ]),
         changeEditable() {
             this.editable = true
         },
-        updateTitle() {
+        updateTodoTitle() {
             if (this.title.length > 0) {
                 this.editable = false
-                this.$store.dispatch('updateTitle', { id: this.todo.id, title: this.title })
+                this.updateTitle({ id: this.todo.id, title: this.title })
             } else {
-                this.$store.dispatch('setMessage', '入力してください')
+                this.setMessage('入力してください')
             }
         }
     },
