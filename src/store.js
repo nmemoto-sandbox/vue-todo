@@ -4,23 +4,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        todos: [
-            {
-                id: 0,
-                title: "Vue の学習",
-                done: false 
-            },
-            {
-                id: 1,
-                title: "k8s の学習",
-                done: false
-            },
-            {
-                id: 2,
-                title: "React の学習",
-                done: false
-            }
-        ],
+        todos: [],
         message: ""
     },
     getters: {
@@ -32,6 +16,9 @@ const store = new Vuex.Store({
         }
     },
     mutations: {
+        setTodos(state, payload) {
+            state.todos = payload.todos
+        },
         addTodo(state, payload) {
             const ids = state.todos.map(todo => todo.id)
             state.todos.push({
@@ -53,6 +40,9 @@ const store = new Vuex.Store({
         }
     },
     actions: {
+        setTodos({ commit }, todos) {
+            commit('setTodos', { todos })
+        },
         addTodo({ commit }, title) {
             commit('addTodo', { title })
         },
