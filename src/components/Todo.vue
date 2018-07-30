@@ -31,6 +31,7 @@ export default {
         updateTodoTitle() {
             if (this.title.length > 0) {
                 this.editable = false
+                this.setMessage('')
                 this.updateTitle({ id: this.todo.id, title: this.title })
             } else {
                 this.setMessage('入力してください')
