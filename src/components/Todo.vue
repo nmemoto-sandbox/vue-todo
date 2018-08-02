@@ -11,6 +11,11 @@
             <v-list-tile-content @click="changeEditable">
                 <v-list-tile-title :class="{done: todo.done}">{{ todo.title }}</v-list-tile-title>
             </v-list-tile-content>
+            <v-list-tile-action>
+              <v-btn icon ripple @click="deleteTodoById(todo.id)">
+                <v-icon color="gray lighten-1">delete</v-icon>
+              </v-btn>
+            </v-list-tile-action>
         </template>
     </v-list-tile>
 </template>
@@ -28,7 +33,8 @@ export default {
         ...mapActions([
             'changeStatus',
             'updateTitle',
-            'setMessage'
+            'setMessage',
+            'deleteTodo'
         ]),
         changeEditable() {
             this.editable = true
@@ -41,6 +47,9 @@ export default {
             } else {
                 this.setMessage('入力してください')
             }
+        },
+        deleteTodoById(id) {
+            this.deleteTodo(id)
         }
     },
     directives: {

@@ -27,6 +27,9 @@ const store = new Vuex.Store({
                 done: false
             })
         },
+        deleteTodo(state, payload) {
+            state.todos = state.todos.filter(todo => todo.id !== payload.id)
+        },
         setMessage(state, payload) {
             state.message = payload.message
         },
@@ -45,6 +48,9 @@ const store = new Vuex.Store({
         },
         addTodo({ commit }, title) {
             commit('addTodo', { title })
+        },
+        deleteTodo({ commit }, id) {
+            commit('deleteTodo', { id })
         },
         setMessage({ commit }, message) {
             commit('setMessage', { message }) 
