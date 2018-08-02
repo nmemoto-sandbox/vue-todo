@@ -1,13 +1,18 @@
 <template>
-    <div>
-        <input type="checkbox" id="checkbox" value="todo.done" @change="changeStatus(todo.id)">
+    <v-list-tile>
+        <v-list-tile-action>
+            <v-checkbox :value="todo.done" @change="changeStatus(todo.id)"></v-checkbox>
+        </v-list-tile-action>
+
         <template v-if="this.editable">
-            <input @keyup.enter="updateTodoTitle" @blur="updateTodoTitle" v-model="title" v-focus>
+            <v-text-field @keyup.enter="updateTodoTitle" @blur="updateTodoTitle" v-model="title" v-focus></v-text-field>
         </template>
         <template v-else>
-            <label :class="{done: todo.done}" @click="changeEditable">{{ todo.title }}</label>
+            <v-list-tile-content @click="changeEditable">
+                <v-list-tile-title :class="{done: todo.done}">{{ todo.title }}</v-list-tile-title>
+            </v-list-tile-content>
         </template>
-    </div>
+    </v-list-tile>
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -41,7 +46,7 @@ export default {
     directives: {
         focus: {
             inserted: function (el) {
-                el.focus()
+                el.getElementsByTagName('input')[0].focus()
             }
         }
     }

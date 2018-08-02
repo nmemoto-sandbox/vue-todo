@@ -1,21 +1,32 @@
 <template>
-  <div id="app">
-    <message></message>
-    <add-todo></add-todo>
-    <todo-list></todo-list>
-  </div>
+    <v-app id="inspire">
+      <sidebar-component :drawer="drawer"></sidebar-component>>
+      <header-component @changeDrawer="changeDrawer"></header-component>
+      <content-component></content-component>
+      <footer-component></footer-component>
+    </v-app>
 </template>
-
 <script>
-import TodoList from './components/TodoList.vue'
-import AddTodo from './components/AddTodo.vue'
-import Message from './components/Message.vue'
+import SidebarComponent from './components/SidebarComponent.vue'
+import HeaderComponent from './components/HeaderComponent.vue'
+import ContentComponent from './components/ContentComponent.vue'
+import FooterComponent from './components/FooterComponent.vue'
 export default {
-  name: 'app',
-  components: {
-    TodoList,
-    AddTodo,
-    Message
-  }
+    data () {
+      return {
+        drawer: false
+      }
+    },
+    methods: {
+      changeDrawer: function() {
+        this.drawer = !this.drawer
+      }
+    },
+    components: {
+      SidebarComponent,
+      HeaderComponent,
+      ContentComponent,
+      FooterComponent
+    }
 }
 </script>

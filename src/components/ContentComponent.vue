@@ -1,0 +1,27 @@
+<template>
+    <v-content>
+        <v-container fluid fill-height>
+            <v-layout
+                row
+            >
+                <v-flex xs12 sm6 offset-sm3>
+                    <message></message>
+                    <add-todo></add-todo>
+                    <todo-list></todo-list>
+                </v-flex>
+            </v-layout>
+        </v-container>
+      </v-content>
+</template>
+<script>
+import TodoList from './TodoList.vue'
+import AddTodo from './AddTodo.vue'
+import Message from './Message.vue'
+export default {
+    components: {
+        TodoList,
+        AddTodo,
+        Message
+    }
+}
+</script>
