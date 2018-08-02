@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <v-list>
         <todo v-for="(todo, i) in todos" :key="i" :todo="todo"></todo>
-    </div>
+    </v-list>
 </template>
 
 <script>
