@@ -2,10 +2,9 @@
     <v-content>
         <v-container fluid fill-height>
             <v-layout
-                justify-center
-                align-center
+                row
             >
-                <v-flex text-xs-center>
+                <v-flex xs12 sm6 offset-sm3>
                     <message></message>
                     <add-todo></add-todo>
                     <todo-list></todo-list>
