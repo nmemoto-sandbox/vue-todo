@@ -1,7 +1,16 @@
 <template>
     <div>
-        <input v-model="newTodo">
-        <button @click="addNewTodo">Add</button>
+        <v-text-field
+            v-model="newTodo"
+            :append-outer-icon="'add_circle'"
+            solo
+            clear-icon="mdi-close-circle"
+            clearable
+            label="New Todo"
+            type="text"
+            @click:append-outer="addNewTodo"
+            @click:clear="clearText"
+        ></v-text-field>
     </div>
 </template>
 <script>
@@ -25,6 +34,9 @@ export default {
             } else {
                 this.setMessage('入力してください')
             }
+        },
+        clearText () {
+            this.newTodo = ''
         }
     }
 }
