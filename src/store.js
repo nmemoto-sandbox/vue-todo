@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+import * as TodoAPI from './lib/TodoAPI.js'
+
 const store = new Vuex.Store({
     state: {
         todos: [],
@@ -20,12 +22,7 @@ const store = new Vuex.Store({
             state.todos = payload.todos
         },
         addTodo(state, payload) {
-            const ids = state.todos.map(todo => todo.id)
-            state.todos.push({
-                id: Math.max(...ids) + 1,
-                title: payload.title,
-                done: false
-            })
+            state.todos.push(payload.todo)
         },
         deleteTodo(state, payload) {
             state.todos = state.todos.filter(todo => todo.id !== payload.id)
@@ -37,29 +34,40 @@ const store = new Vuex.Store({
             const arrayNum = state.todos.findIndex((todo) => todo.id === payload.id)
             state.todos[arrayNum].done = !state.todos[arrayNum].done
         },
-        updateTitle(state, payload) {
+        updateName(state, payload) {
             const arrayNum = state.todos.findIndex((todo) => todo.id === payload.id)
-            state.todos[arrayNum].title = payload.title
+            state.todos[arrayNum].name = payload.name
         }
     },
     actions: {
-        setTodos({ commit }, todos) {
-            commit('setTodos', { todos })
+        setTodos({ commit }) {
+            TodoAPI.findAll().then(todos => {
+                commit('setTodos', { todos })
+            })
         },
-        addTodo({ commit }, title) {
-            commit('addTodo', { title })
+        addTodo({ commit }, name) {
+            TodoAPI.create({ name, done: false}).then(todo => {
+                commit('addTodo', { todo })
+            })
         },
         deleteTodo({ commit }, id) {
-            commit('deleteTodo', { id })
+            TodoAPI.remove(id).then(()=>{
+                commit('deleteTodo', { id })
+            })
         },
         setMessage({ commit }, message) {
             commit('setMessage', { message }) 
         },
-        changeStatus({ commit }, id) {
-            commit('changeStatus', { id } )
+        changeStatus({ commit, state }, id) {
+            const done = !state.todos.find(todo => todo.id === id).done
+            TodoAPI.patch(id, { done }).then(todo => {
+                commit('changeStatus', { id } )
+            })
         },
-        updateTitle({ commit }, { id, title }) {
-            commit('updateTitle', { id, title })
+        updateName({ commit }, { id, name }) {
+            TodoAPI.patch(id, { name }).then(todo => {
+                commit('updateName', { id, name: todo.name })
+            })
         }
     }
   })

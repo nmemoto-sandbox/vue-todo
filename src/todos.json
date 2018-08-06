@@ -1,17 +1,17 @@
 [
     {
         "id": 0,
-        "title": "Vue の学習",
+        "name": "Vue の学習",
         "done": false 
     },
     {
         "id": 1,
-        "title": "k8s の学習",
+        "name": "k8s の学習",
         "done": false
     },
     {
         "id": 2,
-        "title": "React の学習",
+        "name": "React の学習",
         "done": false
     }
 ]

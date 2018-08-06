@@ -5,11 +5,11 @@
         </v-list-tile-action>
 
         <template v-if="this.editable">
-            <v-text-field @keyup.enter="updateTodoTitle" @blur="updateTodoTitle" v-model="title" v-focus></v-text-field>
+            <v-text-field @keyup.enter="updateTodoName" @blur="updateTodoName" v-model="name" v-focus></v-text-field>
         </template>
         <template v-else>
             <v-list-tile-content @click="changeEditable">
-                <v-list-tile-title :class="{done: todo.done}">{{ todo.title }}</v-list-tile-title>
+                <v-list-tile-title :class="{done: todo.done}">{{ todo.name }}</v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
               <v-btn icon ripple @click="deleteTodoById(todo.id)">
@@ -26,24 +26,24 @@ export default {
     data () {
         return {
             editable: false,
-            title: this.todo.title
+            name: this.todo.name
         }
     },
     methods: {
         ...mapActions([
             'changeStatus',
-            'updateTitle',
+            'updateName',
             'setMessage',
             'deleteTodo'
         ]),
         changeEditable() {
             this.editable = true
         },
-        updateTodoTitle() {
-            if (this.title.length > 0) {
+        updateTodoName() {
+            if (this.name.length > 0) {
                 this.editable = false
                 this.setMessage('')
-                this.updateTitle({ id: this.todo.id, title: this.title })
+                this.updateName({ id: this.todo.id, name: this.name })
             } else {
                 this.setMessage('入力してください')
             }
