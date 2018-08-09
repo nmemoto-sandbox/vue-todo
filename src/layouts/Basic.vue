@@ -6,7 +6,7 @@
             app
         >
             <v-list dense>
-                <router-link to="/" class="item">
+                <router-link to="/todos" class="item">
                     <v-list-tile>
                         <v-list-tile-action>
                             <v-icon>home</v-icon>

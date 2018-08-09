@@ -1,4 +1,5 @@
 <template>
+    <basic>
     <v-content>
         <v-container fluid fill-height>
             <v-layout
@@ -12,13 +13,16 @@
             </v-layout>
         </v-container>
       </v-content>
+    </basic>
 </template>
 <script>
+import Basic from '../layouts/Basic.vue'
 import TodoList from './TodoList.vue'
 import AddTodo from './AddTodo.vue'
 import Message from './Message.vue'
 export default {
     components: {
+        Basic,
         TodoList,
         AddTodo,
         Message
