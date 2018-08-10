@@ -1,7 +1,7 @@
 <template>
     <v-list-tile>
         <v-list-tile-action>
-            <v-checkbox :value="todo.done" @change="changeStatus(todo.id)"></v-checkbox>
+            <v-checkbox :input-value="todo.done" :value="todo.done" @change="changeStatus(todo.id)"></v-checkbox>
         </v-list-tile-action>
 
         <template v-if="this.editable">
