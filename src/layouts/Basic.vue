@@ -18,12 +18,12 @@
                 </router-link>
             </v-list>
         </v-navigation-drawer>
-        <v-toolbar color="indigo" dark fixed app>
+        <v-toolbar color="primary" dark fixed app>
             <v-toolbar-side-icon @click.stop="changeDrawer"></v-toolbar-side-icon>
             <v-toolbar-title><router-link to="/" class="title">Vue Todo</router-link></v-toolbar-title>
         </v-toolbar>
         <slot></slot>
-        <v-footer color="indigo" app>
+        <v-footer color="primary" app>
             <span class="white--text">&copy; 2018</span>
         </v-footer>
     </div>
