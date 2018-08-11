@@ -2,14 +2,14 @@
     <div>
         <v-text-field
             v-model="newTodo"
-            :append-outer-icon="'add_circle'"
             solo
-            clear-icon="mdi-close-circle"
+            :append-outer-icon="'add_circle'"
             clearable
             label="New Todo"
             type="text"
             @click:append-outer="addNewTodo"
             @click:clear="clearText"
+            @keyup.enter="addNewTodo"
         ></v-text-field>
     </div>
 </template>
