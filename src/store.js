@@ -7,7 +7,8 @@ import * as TodoAPI from './lib/TodoAPI.js'
 const store = new Vuex.Store({
     state: {
         todos: [],
-        message: ""
+        message: "",
+        user: null
     },
     getters: {
         todos: state => {
@@ -15,9 +16,19 @@ const store = new Vuex.Store({
         },
         message: state =>  {
             return state.message
-        }
+        },
+        user: state => {
+            return state.user
+        } 
     },
     mutations: {
+        login(state, payload) {
+            state.user = payload.user
+        },
+        logout(state) {
+            state.user = null
+            Vue.auth.logout()
+        },
         setTodos(state, payload) {
             state.todos = payload.todos
         },
@@ -40,6 +51,25 @@ const store = new Vuex.Store({
         }
     },
     actions: {
+        setUser({ commit }, user ) {
+            commit('login', { user })
+        },
+        login({ commit }) {
+            Vue.auth.login().then(
+              user => {
+                if (user) {
+                  commit('login', { user })
+                  Vue.localStorage.set('user', user)
+                }
+              },
+              () => {
+              }
+            );
+        },
+        logout({ commit }) {
+            Vue.localStorage.remove('user')
+            commit('logout')
+        },
         setTodos({ commit }) {
             TodoAPI.findAll().then(todos => {
                 commit('setTodos', { todos })

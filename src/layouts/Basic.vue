@@ -21,6 +21,23 @@
         <v-toolbar color="primary" dark fixed app>
             <v-toolbar-side-icon @click.stop="changeDrawer"></v-toolbar-side-icon>
             <v-toolbar-title><router-link to="/" class="title">Vue Todo</router-link></v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn
+                flat
+                outline 
+                v-if="!user"
+                @click="login"
+            >
+                Login with Microsoft
+            </v-btn>
+            <v-btn
+                flat
+                outline 
+                v-if="user"
+                @click="logout"
+            >
+                Logout
+            </v-btn>
         </v-toolbar>
         <slot></slot>
         <v-footer color="primary" app>
@@ -29,13 +46,19 @@
     </div>
 </template>
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
     data () {
         return {
             drawer: false
         }
     },
+    computed: mapGetters(['user']),
     methods: {
+        ...mapActions([
+            'login',
+            'logout'
+        ]),
         changeDrawer: function() {
             this.drawer = !this.drawer
         }
