@@ -5,17 +5,28 @@
             fixed
             app
         >
-            <v-list dense>
-                <router-link to="/todos" class="item">
-                    <v-list-tile>
-                        <v-list-tile-action>
-                            <v-icon>home</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>Home</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </router-link>
+            <v-list dense subheader>
+                <v-subheader>Hello, 
+                    <div style="padding-left: 10px;font-weight: bold;">
+                     {{ username }}
+                    </div>
+                </v-subheader>
+                <v-list-tile to="/todos" class="item">
+                    <v-list-tile-action>
+                        <v-icon>home</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Home</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile @click="clickSignInButton" class="item">
+                    <v-list-tile-action>
+                        <v-icon>arrow_back</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Sign Out</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
             </v-list>
         </v-navigation-drawer>
         <v-toolbar color="primary" dark fixed app>
@@ -35,16 +46,18 @@
     </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
     data () {
         return {
             drawer: false
         }
     },
+    computed: mapGetters(['username']),
     methods: {
         ...mapActions([
-            'signOut'
+            'signOut',
+            'me'
         ]),
         clickSignInButton() {
             this.signOut()
@@ -53,6 +66,10 @@ export default {
             this.drawer = !this.drawer
         }
     },
+    created () {
+        this.me()
+    }
+
 }
 </script>
 <style lang="scss" scoped>
