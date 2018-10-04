@@ -10,7 +10,9 @@ import { HttpConstants } from './lib/http/Constants'
 const store = new Vuex.Store({
     state: {
         todos: [],
-        message: ""
+        message: "",
+        username: undefined,
+        signin: false
     },
     getters: {
         todos: state => {
@@ -18,9 +20,19 @@ const store = new Vuex.Store({
         },
         message: state =>  {
             return state.message
+        },
+        username: state => {
+            return state.username
+        },
+        signin: state => {
+            return state.login
         }
     },
     mutations: {
+        setUsername(state, payload) {
+            state.username = payload.username
+            state.signin = true
+        },
         setTodos(state, payload) {
             state.todos = payload.todos
         },
@@ -43,7 +55,7 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-       signIn({ commit, dispatch }, { username, password }) {
+       signIn({ commit }, { username, password }) {
             sessionStorage.removeItem(HttpConstants.STORAGE_AUTHORIZATION_KEY)
             UserAPI.signin({ username, password }).then(res => {
                 let authorization = res.headers['authorization']
@@ -68,7 +80,7 @@ const store = new Vuex.Store({
                         commit('setMessage', { message: "ユーザーは作成できませんでした" })
                     }
                 }).catch(err => {
-                    console.error(err)
+                    console.log(err)
                     commit('setMessage', { message: "ユーザーは作成できませんでした" })
                 })
             } else {
@@ -80,6 +92,11 @@ const store = new Vuex.Store({
             router.push({ path: '/'})
             commit('setMessage', { message: "サインアウトしました" })
 
+        },
+        me({ commit }) {
+            UserAPI.me().then(me => {
+                commit('setUsername', { username: me.username })
+            })
         },
         async setTodos({ commit }) {
             const todos = await TodoAPI.findAll()

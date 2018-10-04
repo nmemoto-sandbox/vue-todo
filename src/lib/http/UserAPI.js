@@ -13,3 +13,13 @@ export function signup(userinfo) {
         return res
     })
 }
+
+export const me = async () => {
+    try {
+        let res = await Vue.http.get(`${FETCH_API}/me`)
+        return res.data
+    } catch (err) {
+        console.log(err) 
+        throw err 
+    }
+}
